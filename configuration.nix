@@ -46,11 +46,11 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  # services.xserver.enable = true;
 
   # Enable the Pantheon Desktop Environment.
-  services.xserver.displayManager.lightdm.enable = true;
-  services.desktopManager.pantheon.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
+  services.desktopManager.cosmic.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -60,15 +60,6 @@
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
-
-  services.xserver = {
-	enable = true;
-	autoRepeatDelay = 200;
-	autoRepeatInterval = 35;
-	windowManager.qtile.enable = true;
-  };
-  services.displayManager.ly.enable = true; 
-
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -121,7 +112,10 @@
       texliveFull
       texstudio
       alacritty
+      libglvnd mesa
     ];
+
+  environment.variables.LD_LIBRARY_PATH = "/run/opengl/driver/lib:/opengl-driver-32/lib"; 
 
   fonts.packages = with pkgs; [
 	nerd-fonts.jetbrains-mono

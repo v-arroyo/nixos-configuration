@@ -1,16 +1,16 @@
-{ config, pkgs, ... }
-
-
+{ config, pkgs, ... }:
 
 {
 	home.username = "victoria";
-	home.homeDirectory = "/home/tony";
+	home.homeDirectory = "/home/victoria";
 	programs.git.enable = true;
-	home.stateVersion = "25.06";
-	programs.basg = {
+	home.stateVersion = "26.05";
+	programs.vim = {
 		enable = true;
-		shellAliases = 
-			btw = "echo I use nixos, btw";
+		extraConfig = ''
+			set tabstop=4
+			set shiftwidth=4
+			set expandtab
+		'';
 	};
-    };
-};
+}
