@@ -17,7 +17,7 @@
   # Use provided UUIDs instead of blkid probing (required for btrfs subvolumes)
   boot.loader.grub.fsIdentifier = "provided";
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixos-btw"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -59,7 +59,16 @@
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  # services.printing.enable = true;
+
+  services.xserver = {
+	enable = true;
+	autoRepeatDelay = 200;
+	autoRepeatInterval = 35;
+	windowManager.qtile.enable = true;
+  };
+  services.displayManager.ly.enable = true; 
+
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -82,10 +91,7 @@
     description = "Victoria";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      thunderbird
-      git
-      thunar
-      librewolf
+      tree
     ];
   };
 
@@ -105,12 +111,23 @@
   environment.systemPackages = with pkgs; [
       vim 
       wget
+      git
+      thunderbird
+      thunar
+      librewolf
       pantheon-tweaks
       pantheon.wingpanel
       pantheon.switchboard
       texliveFull
       texstudio
+      alacritty
     ];
+
+  fonts.packages = with pkgs; [
+	nerd-fonts.jetbrains-mono
+  ];
+
+  nix.settings.experimental-features = [ "nix-command" "flakes"];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
