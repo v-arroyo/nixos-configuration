@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -83,8 +83,9 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       thunderbird
-      vim
       git
+      thunar
+      librewolf
     ];
   };
 
@@ -94,12 +95,22 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Enable automatic mounting
+  services.udisks2.enable = true;
+  services.devmon.enable = true;
+  services.gvfs.enable = true; 
+
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
-  # environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
-  # ];
+  environment.systemPackages = with pkgs; [
+      vim 
+      wget
+      pantheon-tweaks
+      pantheon.wingpanel
+      pantheon.switchboard
+      texliveFull
+      texstudio
+    ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
